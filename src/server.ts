@@ -21,6 +21,7 @@ app.use(cors());
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
 app.use(compression());
+app.use(apiLimiter);
 
 // Error Middleware
 app.use(apiLimiter);

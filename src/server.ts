@@ -55,7 +55,7 @@ app.get('/health', async (req, res) => {
   });
 });
 
-// Routes (add yours here)
+// Routes
 // app.use("/api/auth", authRoutes);
 // app.use("/api/users", userRoutes);
 

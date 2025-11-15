@@ -56,7 +56,7 @@ export class AuthService {
     }
 
     const token = generateToken({
-      id: user.id,
+      id: user.id.toString(), // ✅ FIXED
       name: user.name,
       admin: user.role === 'admin',
     });

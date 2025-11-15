@@ -1,22 +1,19 @@
 import type { ObjectSchema } from 'joi';
 import Joi from 'joi';
 
-/**
- * Validation schema for user registration
- */
 export const registerValidation: ObjectSchema = Joi.object({
-  username: Joi.string()
+  name: Joi.string()
     .pattern(/^[A-Za-z]+(\s[A-Za-z]+)*$/)
     .min(3)
     .max(50)
     .trim()
     .required()
     .messages({
-      'string.empty': 'Username is required',
-      'string.min': 'Username must be at least 3 characters long',
-      'string.max': 'Username cannot exceed 50 characters',
-      'string.pattern.base': "Username can only contain letters and spaces (e.g., 'John Doe')",
-      'any.required': 'Username is required',
+      'string.empty': 'Name is required',
+      'string.min': 'Name must be at least 3 characters long',
+      'string.max': 'Name cannot exceed 50 characters',
+      'string.pattern.base': 'Name can only contain letters and spaces',
+      'any.required': 'Name is required',
     }),
 
   email: Joi.string()
@@ -40,7 +37,7 @@ export const registerValidation: ObjectSchema = Joi.object({
       'string.min': 'Password must be at least 8 characters long',
       'string.max': 'Password cannot exceed 128 characters',
       'string.pattern.base':
-        'Password must include at least one uppercase letter, one lowercase letter, one number, and one special character (@$!%*?&)',
+        'Password must include uppercase, lowercase, number and special character',
       'any.required': 'Password is required',
     }),
 
@@ -55,13 +52,10 @@ export const registerValidation: ObjectSchema = Joi.object({
     'number.max': 'Age cannot exceed 120',
   }),
 }).options({
-  abortEarly: false, // Return all errors, not just the first
-  stripUnknown: true, // Remove unknown fields
+  abortEarly: false,
+  stripUnknown: true,
 });
 
-/**
- * Validation schema for user login
- */
 export const loginValidation: ObjectSchema = Joi.object({
   email: Joi.string()
     .email({ tlds: { allow: false } })
@@ -85,9 +79,6 @@ export const loginValidation: ObjectSchema = Joi.object({
   stripUnknown: true,
 });
 
-/**
- * Validation schema for logout (optional token validation)
- */
 export const logoutValidation: ObjectSchema = Joi.object({
   refreshToken: Joi.string().optional().messages({
     'string.base': 'Refresh token must be a string',

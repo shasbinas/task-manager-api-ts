@@ -1,11 +1,16 @@
 import { Router } from 'express';
-import { loginUser, logoutUser, registerUser } from '../controllers/auth.controller.js';
+import { registerUser, loginUser, logoutUser } from '../controllers/auth.controller.js';
+import { validate } from '../middlewares/validate.js';
+import {
+  registerValidation,
+  loginValidation,
+  logoutValidation,
+} from '../validations/auth.validation.js';
 
 const authRoutes = Router({ mergeParams: true });
 
-// POST /api/auth/register
-authRoutes.post('/register', registerUser);
-authRoutes.post('/login', loginUser);
-authRoutes.post('/logout', logoutUser);
+authRoutes.post('/register', validate(registerValidation), registerUser);
+authRoutes.post('/login', validate(loginValidation), loginUser);
+authRoutes.post('/logout', validate(logoutValidation), logoutUser);
 
 export default authRoutes;

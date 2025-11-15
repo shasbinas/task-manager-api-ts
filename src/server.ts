@@ -11,6 +11,8 @@ import { apiLimiter } from './middlewares/rateLimiter.middleware.js';
 import { errorHandler } from './middlewares/error.middleware.js';
 import authRoutes from './routes/auth.routes.js';
 import taskRoutes from './routes/tasks.routes.js';
+import commentRoutes from './routes/comments.routes.js';
+import userRoutes from './routes/users.routes.js';
 
 dotenv.config();
 
@@ -60,7 +62,8 @@ app.get('/health', async (req, res) => {
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/tasks', taskRoutes);
-// app.use("/api/users", userRoutes);
+app.use('/api', commentRoutes);
+app.use('/api/users', userRoutes);
 
 // Error Handler
 app.use(errorHandler);

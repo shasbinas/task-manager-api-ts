@@ -10,11 +10,14 @@ export const registerUser = asyncHandler(async (req: Request, res: Response) => 
 
 export const loginUser = asyncHandler(async (req: Request, res: Response) => {
   const { email, password } = req.body;
+
   const { user, token } = await authService.loginUser(email, password);
+
   res.status(200).json({
-    _id: user._id,
-    username: user.username,
+    id: user.id,
+    name: user.name,
     email: user.email,
+    role: user.role,
     token,
   });
 });

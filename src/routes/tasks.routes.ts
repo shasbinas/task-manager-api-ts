@@ -7,6 +7,7 @@ import {
   updateTask,
   deleteTask,
   completeTask,
+  assignTask, // ⭐ MUST BE IMPORTED
 } from '../controllers/tasks.controller.js';
 
 const taskRouter = Router();
@@ -17,7 +18,10 @@ taskRouter.get('/:id', authMiddleware, getTaskById);
 taskRouter.put('/:id', authMiddleware, updateTask);
 taskRouter.delete('/:id', authMiddleware, deleteTask);
 
-// ✅ ADD THIS ROUTE
+// ⭐ COMPLETE TASK
 taskRouter.put('/:id/complete', authMiddleware, completeTask);
+
+// ⭐ ASSIGN TASK (the route you were missing!)
+taskRouter.put('/:id/assign', authMiddleware, assignTask);
 
 export default taskRouter;

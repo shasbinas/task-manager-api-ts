@@ -2,9 +2,9 @@ declare global {
   namespace Express {
     interface Request {
       user?: {
-        id: string; // Prisma ID
+        id: number; // FIXED → must be number (Prisma Int)
         email: string;
-        name: string; // Prisma field (not username)
+        name: string; // Prisma field
         role: string;
         [key: string]: any;
       };

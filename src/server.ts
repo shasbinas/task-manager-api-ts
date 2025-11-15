@@ -10,6 +10,7 @@ import { redisClient } from './config/redis.js';
 import { apiLimiter } from './middlewares/rateLimiter.middleware.js';
 import { errorHandler } from './middlewares/error.middleware.js';
 import authRoutes from './routes/auth.routes.js';
+import taskRoutes from './routes/tasks.routes.js';
 
 dotenv.config();
 
@@ -58,6 +59,7 @@ app.get('/health', async (req, res) => {
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/tasks', taskRoutes);
 // app.use("/api/users", userRoutes);
 
 // Error Handler

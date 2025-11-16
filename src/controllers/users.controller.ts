@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import prisma from '../config/db.js';
 import { ApiError } from '../utils/ApiError.js';
 
-// GET all users (admin)
+// GET all users
 export const getUsers = async (req: Request, res: Response) => {
   const users = await prisma.user.findMany({
     select: {
@@ -18,9 +18,9 @@ export const getUsers = async (req: Request, res: Response) => {
   res.json({ success: true, data: users });
 };
 
-// GET user by id (admin)
+// GET user by id
 export const getUserById = async (req: Request, res: Response) => {
-  const id = Number(req.params.id);
+  const { id } = req.validatedData!.params;
 
   const user = await prisma.user.findUnique({
     where: { id },
@@ -38,19 +38,12 @@ export const getUserById = async (req: Request, res: Response) => {
   res.json({ success: true, data: user });
 };
 
-// UPDATE user role (admin)
+// UPDATE user role
 export const updateUserRole = async (req: Request, res: Response) => {
-  const id = Number(req.params.id);
-  const { role } = req.body;
+  const { id } = req.validatedData!.params;
+  const { role } = req.validatedData!.body;
 
-  if (!role) throw ApiError.badRequest('Role is required');
-
-  const validRoles = ['user', 'admin'];
-  if (!validRoles.includes(role)) {
-    throw ApiError.badRequest('Invalid role. Must be user or admin');
-  }
-
-  const user = await prisma.user.update({
+  const updated = await prisma.user.update({
     where: { id },
     data: { role },
     select: {
@@ -61,12 +54,12 @@ export const updateUserRole = async (req: Request, res: Response) => {
     },
   });
 
-  res.json({ success: true, message: 'Role updated', data: user });
+  res.json({ success: true, message: 'Role updated', data: updated });
 };
 
-// DELETE user (admin)
+// DELETE user
 export const deleteUser = async (req: Request, res: Response) => {
-  const id = Number(req.params.id);
+  const { id } = req.validatedData!.params;
 
   const user = await prisma.user.findUnique({ where: { id } });
   if (!user) throw ApiError.notFound('User not found');

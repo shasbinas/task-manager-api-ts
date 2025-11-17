@@ -8,16 +8,20 @@ generator client {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  password  String
-  role      String   @default("user")
-  tasks     Task[]   @relation("owner")
-  assigned  Task[]   @relation("assignee")
-  comments  Comment[]
-  createdAt DateTime @default(now())
+  id           Int       @id @default(autoincrement())
+  name         String
+  email        String    @unique
+  password     String
+  role         String    @default("user")
+
+  profileImage String?   // <-- ADD THIS FIELD
+
+  tasks        Task[]    @relation("owner")
+  assigned     Task[]    @relation("assignee")
+  comments     Comment[]
+  createdAt    DateTime  @default(now())
 }
+
 
 model Task {
   id          Int       @id @default(autoincrement())

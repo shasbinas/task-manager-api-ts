@@ -68,3 +68,32 @@ export const deleteUser = async (req: Request, res: Response) => {
 
   res.json({ success: true, message: 'User deleted' });
 };
+
+export const uploadProfilePicture = async (req: Request, res: Response) => {
+  if (!req.file) {
+    throw ApiError.badRequest('No image uploaded');
+  }
+
+  const imageUrl = (req.file as any).path; // Cloudinary URL
+
+  const user = await prisma.user.update({
+    where: { id: (req as any).user.id },
+    data: {
+      profileImage: imageUrl, // <-- Safe now because schema + client updated
+    },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      profileImage: true, // <-- include new field
+      createdAt: true,
+    },
+  });
+
+  return res.json({
+    success: true,
+    message: 'Profile updated',
+    data: user,
+  });
+};

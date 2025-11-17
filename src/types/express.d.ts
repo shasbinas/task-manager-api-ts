@@ -1,10 +1,12 @@
+import 'express';
+
 declare global {
   namespace Express {
     interface Request {
-      user?: {
-        id: number; // FIXED → must be number (Prisma Int)
+      user: {
+        id: number; // Prisma user.id is Int → number
         email: string;
-        name: string; // Prisma field
+        name: string;
         role: string;
         [key: string]: any;
       };

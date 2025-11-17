@@ -5,10 +5,12 @@ import {
   getUserById,
   updateUserRole,
   deleteUser,
+  uploadProfilePicture,
 } from '../controllers/users.controller.js';
 
 import { validate } from '../middlewares/validate.js';
 import { idParamSchema, updateRoleSchema } from '../validations/user.validation.js';
+import { uploadProfile } from '../middlewares/uploadProfile.js';
 
 const router = Router();
 
@@ -38,5 +40,7 @@ router.put(
 // DELETE USER
 // --------------------
 router.delete('/:id', authMiddleware, adminOnly, validate(idParamSchema, 'params'), deleteUser);
+
+router.put('/profile/picture', authMiddleware, uploadProfile.single('image'), uploadProfilePicture);
 
 export default router;

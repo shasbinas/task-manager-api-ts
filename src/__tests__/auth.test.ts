@@ -31,7 +31,4 @@ describe('Auth API', () => {
       console.log('✅ User registered successfully');
     }, 10000);
   });
-
-
-  
 });

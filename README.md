@@ -1,151 +1,157 @@
-# ⚙️ Task Manager API (TypeScript + Express + PostgreSQL + Redis)
+# ⚙️ Task Manager API (TypeScript + Express + PostgreSQL + Prisma + Redis)
 
 <div align="center">
-  <img src="https://img.shields.io/badge/-TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/-Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js" />
-  <img src="https://img.shields.io/badge/-Express.js-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express.js" />
-  <img src="https://img.shields.io/badge/-PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" />
-  <img src="https://img.shields.io/badge/-Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white" alt="Prisma ORM" />
-  <img src="https://img.shields.io/badge/-Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white" alt="Redis" />
-  <img src="https://img.shields.io/badge/-JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white" alt="JWT" />
-  <img src="https://img.shields.io/badge/-argon2-003366?style=for-the-badge&logo=security&logoColor=white" alt="argon2" />
-  <img src="https://img.shields.io/badge/-Joi-FFB703?style=for-the-badge&logo=javascript&logoColor=black" alt="Joi Validation" />
-  <img src="https://img.shields.io/badge/-Helmet-000000?style=for-the-badge&logo=helmet&logoColor=white" alt="Helmet" />
+  <img src="https://img.shields.io/badge/-TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Express.js-000000?style=for-the-badge&logo=express&logoColor=white" />
+  <img src="https://img.shields.io/badge/-PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white" />
+  <img src="https://img.shields.io/badge/-JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white" />
+  <img src="https://img.shields.io/badge/-argon2-003366?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/-Joi-FFB703?style=for-the-badge&logoColor=black" />
+  <img src="https://img.shields.io/badge/-Helmet-000000?style=for-the-badge&logo=helmet" />
+  <img src="https://img.shields.io/badge/-Jest-C21325?style=for-the-badge&logo=jest&logoColor=white" />
 </div>
-
----
-
-## 🧭 Table of Contents
-
-- [📖 Introduction](#-introduction)
-- [⚙ Tech Stack](#-tech-stack)
-- [🔋 Features](#-features)
-- [📦 Quick Start](#-quick-start)
-- [🚀 Deployment on Render](#-deployment-on-render)
-- [🧱 API Modules Overview](#-api-modules-overview)
+</div>
 
 ---
 
 ## 📖 Introduction
 
-This project is a **production-ready Task Manager REST API** built with **TypeScript**, **Express**, and **PostgreSQL**.  
-It features comprehensive **task management**, **user authentication**, **role-based access control**, and **real-time caching with Redis**.
+A **production-ready Task Manager REST API** built using **TypeScript**, **Express**, **PostgreSQL**, **Prisma**, and **Redis**.
 
-Designed with scalability, security, and maintainability in mind.
+Designed for scalability, security, and clean architecture with:
+
+* Secure Auth (JWT + Redis blacklist)
+* Role-based access
+* Full Task management (CRUD + Assign + Complete)
+* Comment system
+* User management (Admin-only)
+* Cloudinary file upload
+* Type-safe Prisma ORM
+* Centralized validation with Joi
+* Enterprise security stack
+
+---
+
+## 🧭 Table of Contents
+
+* [⚙ Tech Stack](#-tech-stack)
+* [🔋 Features](#-features)
+* [📦 Quick Start](#-quick-start)
+* [🌍 Environment Variables](#-environment-variables)
+* [🧱 API Modules Overview](#-api-modules-overview)
+* [🧪 Testing](#-testing)
+* [🛠️ Migration Commands](#-migration-commands)
+* [🚀 Deployment on Render](#-deployment-on-render)
+* [📜 Scripts](#-scripts)
+* [🔒 Security](#-security)
+* [📄 License](#-license)
 
 ---
 
 ## ⚙ Tech Stack
 
-| Technology | Purpose |
-|-------------|----------|
-| **Node.js** | JavaScript runtime |
-| **TypeScript** | Static typing for robust code |
-| **Express.js** | Web framework for REST APIs |
-| **PostgreSQL** | Relational database |
-| **Prisma** | Modern ORM for database management |
-| **Redis** | Caching and session management |
-| **JWT** | Secure authentication |
-| **argon2** | Password hashing |
-| **Joi** | Request validation |
-| **Helmet** | Security headers |
-| **express-rate-limit** | API rate limiting |
-| **Morgan** | HTTP request logging |
-| **ESLint + Prettier** | Code quality and formatting |
+| Technology                     | Purpose                      |
+| ------------------------------ | ---------------------------- |
+| **Node.js**                    | JavaScript Runtime           |
+| **TypeScript**                 | Type Safety                  |
+| **Express.js**                 | HTTP Server Framework        |
+| **PostgreSQL**                 | Primary Database             |
+| **Prisma ORM**                 | Type-safe DB operations      |
+| **Redis**                      | Caching + Token invalidation |
+| **JWT**                        | Authentication mechanism     |
+| **argon2**                     | Password hashing             |
+| **Joi**                        | Validation library           |
+| **Cloudinary**                 | Media uploads                |
+| **Multer**                     | File handling                |
+| **Helmet / CORS / Rate Limit** | Security                     |
+| **Jest + Supertest**           | Testing                      |
 
 ---
 
 ## 🔋 Features
 
-✅ **JWT-based Authentication with Redis Session Management**  
-✅ **Role-based Access Control (Admin / User)**  
-✅ **Complete Task Management (CRUD + Assign + Complete)**  
-✅ **Task Comments System**  
-✅ **User Management (Admin only)**  
-✅ **Request Validation with Joi**  
-✅ **Rate Limiting for API Protection**  
-✅ **Secure Password Hashing with argon2**  
-✅ **Redis Caching for Performance**  
-✅ **Centralized Error Handling**  
-✅ **TypeScript + Prisma Type Safety**  
-✅ **Security Best Practices (Helmet, CORS, Compression)**
+### 🔐 Authentication & Authorization
+
+* JWT authentication
+* Redis token invalidation (logout)
+* Argon2 password hashing
+* Role-based access control (Admin/User)
+
+### 👤 User Management
+
+* Admin-only user operations
+* Update roles
+* Upload profile picture
+* Delete users
+
+### 📋 Task Management
+
+* CRUD operations
+* Assign tasks to users
+* Mark as completed
+* Owner/Role-based filtering
+
+### 💬 Comments
+
+* Add task comments
+* Fetch comments
+* Delete comments
+
+---
+
+## 🌍 Environment Variables
+
+Create a `.env` file:
+
+```
+PORT=5000
+NODE_ENV=development
+DATABASE_URL="postgresql://user:password@localhost:5432/taskdb"
+JWT_SECRET="your_super_secret_key"
+JWT_EXPIRE=7d
+
+REDIS_HOST=127.0.0.1
+REDIS_PORT=6379
+REDIS_PASSWORD=
+REDIS_TTL=3600
+
+CLOUDINARY_CLOUD_NAME=xxxx
+CLOUDINARY_API_KEY=xxxx
+CLOUDINARY_API_SECRET=xxxx
+```
 
 ---
 
 ## 📦 Quick Start
 
-### 1️⃣ Clone the repository
+### 1️⃣ Clone Repo
+
 ```bash
 git clone https://github.com/shasbinas/task-manager-api-ts.git
 cd task-manager-api-ts
 ```
 
 ### 2️⃣ Install Dependencies
+
 ```bash
 npm install
 ```
 
-### 3️⃣ Environment Variables (.env)
+### 3️⃣ Setup Database
 
-Create a `.env` file in the root directory:
-
-```env
-# Server Configuration
-PORT=5000
-NODE_ENV=development
-
-# Database Configuration
-DATABASE_URL="postgresql://username:password@localhost:5432/task_manager_db"
-
-# JWT Configuration
-JWT_SECRET="your-super-secret-jwt-key-change-this"
-JWT_EXPIRE=7d
-
-# Redis Configuration
-REDIS_HOST=127.0.0.1
-REDIS_PORT=6379
-REDIS_PASSWORD=
-REDIS_TTL=3600
-
-# Rate Limiting
-RATE_LIMIT_WINDOW_MS=900000
-RATE_LIMIT_MAX_REQUESTS=100
-AUTH_RATE_LIMIT_MAX=5
-```
-
-### 4️⃣ Database Setup
 ```bash
-# Generate Prisma Client
-npx prisma generate
-
-# Run migrations
 npm run prisma:migrate
-
-# (Optional) Seed database
-npx prisma db seed
+npx prisma generate
 ```
 
-### 5️⃣ Start the server
+### 4️⃣ Start Development
+
 ```bash
-npm run dev      # Development mode (with tsx watch)
-npm run build    # Build TypeScript to dist/
-npm start        # Run production build
+npm run dev
 ```
-
----
-
-Server will run on:  
-👉 **http://localhost:5000**
-
----
-
-## 🚀 Deployment on Render
-
-1. **Create PostgreSQL Database** on Render
-2. **Create Redis Instance** on Render
-3. **Deploy Web Service** and set environment variables
-4. **Build Command**: `npm run build && npx prisma migrate deploy`
-5. **Start Command**: `npm start`
 
 ---
 
@@ -189,34 +195,78 @@ Server will run on:
 | `POST` | `/tasks/:taskId/comments` | Add comment to task |
 | `GET` | `/tasks/:taskId/comments` | Get all comments for task |
 | `DELETE` | `/comments/:id` | Delete comment |
+---
+
+## 🧪 Testing
+
+Run all tests:
+
+```bash
+npm test
+```
+
+Watch mode:
+
+```bash
+npm run test:watch
+```
 
 ---
 
-## 🧑‍💻 Scripts
+## 🛠️ Migration Commands
 
-| Command | Description |
-|----------|--------------|
-| `npm run dev` | Start development server with watch mode |
-| `npm run build` | Compile TypeScript files |
-| `npm start` | Run compiled app (production) |
-| `npm run lint` | Lint all TypeScript files |
-| `npm run lint:fix` | Fix lint errors automatically |
-| `npm run format` | Format code with Prettier |
-| `npm run prisma:migrate` | Run Prisma migrations |
+```bash
+npx prisma migrate dev
+npx prisma generate
+npx prisma studio
+```
 
 ---
 
-## 🔒 Security Features
+## 🚀 Deployment on Render
 
-- **Helmet.js** for secure HTTP headers
-- **CORS** configuration
-- **Rate limiting** to prevent abuse
-- **argon2** password hashing
-- **JWT** token-based authentication
-- **Redis session** management
-- **Request validation** with Joi
+1. Add environment variables
+2. Use build command:
+
+```bash
+npm run build && npx prisma migrate deploy
+```
+
+3. Start command:
+
+```bash
+npm start
+```
 
 ---
-If you like this project, **please ⭐ star the repo!**
 
-**Repository:** [github.com/shasbinas/task-manager-api-ts](https://github.com/shasbinas/task-manager-api-ts)
+## 📜 Scripts
+
+```json
+"dev": "tsx watch src/server.ts",
+"build": "tsc -p tsconfig.build.json",
+"start": "node dist/server.js",
+"lint": "eslint src --ext .ts",
+"lint:fix": "eslint src --ext .ts --fix",
+"format": "prettier --write src",
+"prisma:migrate": "prisma migrate dev",
+"test": "cross-env NODE_ENV=test jest",
+"test:watch": "cross-env NODE_ENV=test jest --watch"
+```
+
+---
+
+## 🔒 Security
+
+* Helmet
+* CORS
+* Rate Limiter
+* Redis token blacklist
+* Joi request validation
+* Argon2 password hashing
+
+---
+
+## 📄 License
+
+MIT License — Free to use and mo

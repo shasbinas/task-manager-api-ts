@@ -20,7 +20,6 @@ class RedisClient {
           host: process.env.REDIS_HOST || '127.0.0.1',
           port: Number(process.env.REDIS_PORT) || 6379,
         },
-        // FIXED: Only send password if Redis actually has a password enabled
         password: process.env.REDIS_PASSWORD?.trim() ? process.env.REDIS_PASSWORD : undefined,
       });
 
@@ -62,6 +61,25 @@ class RedisClient {
 
   isReady(): boolean {
     return this.isConnected;
+  }
+
+  // Add methods needed for testing
+  async select(db: number): Promise<void> {
+    if (!this.client || !this.isConnected) {
+      throw new Error('Redis client is not connected');
+    }
+    await this.client.select(db);
+  }
+
+  async flushDb(): Promise<void> {
+    if (!this.client || !this.isConnected) {
+      throw new Error('Redis client is not connected');
+    }
+    await this.client.flushDb();
+  }
+
+  isOpen(): boolean {
+    return this.isConnected && this.client !== null;
   }
 }
 

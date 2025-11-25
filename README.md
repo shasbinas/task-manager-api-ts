@@ -177,6 +177,8 @@ docker compose down -v
 Deployments can reuse the provided `Dockerfile`; platforms like Railway/Render only need the same env vars that work locally.
 
 > **Railway/Render tip:** make sure `DATABASE_URL` is set to the managed Postgres connection string (never `localhost`) and that `REDIS_HOST`/`REDIS_PORT` point to the managed cache if you’re not using the in-cluster Redis.
+>
+> If you’re on Railway and forget to set `DATABASE_URL`, the entrypoint will try to construct one from Railway’s default `PG*` environment variables (with `sslmode=require`). Still, it’s best to add `DATABASE_URL` explicitly so Prisma Studio, migrations, and local tooling all share the same value.
 
 ---
 

@@ -112,7 +112,8 @@ cp env.example .env
 
 Key settings:
 
-* `DATABASE_URL` — Prisma/PostgreSQL connection string. For Docker Compose use `postgresql://postgres:postgres@postgres:5432/task_manager?schema=public`.
+* `DATABASE_URL` — Prisma/PostgreSQL connection string for local dev or production (set this on Railway/Render to the managed DB URL).
+* `COMPOSE_DATABASE_URL` — override used only by `docker-compose.yml` (defaults to the internal `postgres` service so containers can talk to each other).
 * `REDIS_HOST` / `REDIS_PORT` — Redis connection (set `redis` when using Compose).
 * `JWT_SECRET`, `CLOUDINARY_*` — secrets for auth and file uploads.
 * `PORT` — API port (defaults to 3000).
@@ -174,6 +175,8 @@ docker compose down -v
 ```
 
 Deployments can reuse the provided `Dockerfile`; platforms like Railway/Render only need the same env vars that work locally.
+
+> **Railway/Render tip:** make sure `DATABASE_URL` is set to the managed Postgres connection string (never `localhost`) and that `REDIS_HOST`/`REDIS_PORT` point to the managed cache if you’re not using the in-cluster Redis.
 
 ---
 

@@ -5,6 +5,7 @@
     "removeComments": true,
     "sourceMap": false,
     "declaration": false,
+    "declarationMap": false,
     "noEmitOnError": true,
     "preserveConstEnums": true,
     "isolatedModules": true,

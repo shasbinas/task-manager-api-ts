@@ -1,5 +1,5 @@
 /**
- * Custom API Error class for handling application errors
+ * Custom API Error class for handling application errors.
  */
 export class ApiError extends Error {
   public statusCode: number;

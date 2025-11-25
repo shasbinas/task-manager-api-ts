@@ -18,10 +18,13 @@ declare module 'multer-storage-cloudinary' {
     _handleFile(
       req: Request,
       file: Express.Multer.File,
-      callback: (error?: Error | null, info?: Partial<Express.Multer.File>) => void
+      callback: (error?: Error | null, info?: Partial<Express.Multer.File>) => void,
     ): void;
 
-    _removeFile(req: Request, file: Express.Multer.File, callback: (error: Error | null) => void): void;
+    _removeFile(
+      req: Request,
+      file: Express.Multer.File,
+      callback: (error: Error | null) => void,
+    ): void;
   }
 }
-

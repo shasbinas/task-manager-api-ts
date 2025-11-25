@@ -104,24 +104,18 @@ Designed for scalability, security, and clean architecture with:
 
 ## 🌍 Environment Variables
 
-Create a `.env` file:
+Copy `env.example` to `.env` and update the values for your environment:
 
 ```
-PORT=5000
-NODE_ENV=development
-DATABASE_URL="postgresql://user:password@localhost:5432/taskdb"
-JWT_SECRET="your_super_secret_key"
-JWT_EXPIRE=7d
-
-REDIS_HOST=127.0.0.1
-REDIS_PORT=6379
-REDIS_PASSWORD=
-REDIS_TTL=3600
-
-CLOUDINARY_CLOUD_NAME=xxxx
-CLOUDINARY_API_KEY=xxxx
-CLOUDINARY_API_SECRET=xxxx
+cp env.example .env
 ```
+
+Key settings:
+
+* `DATABASE_URL` — Prisma/PostgreSQL connection string. For Docker Compose use `postgresql://postgres:postgres@postgres:5432/task_manager?schema=public`.
+* `REDIS_HOST` / `REDIS_PORT` — Redis connection (set `redis` when using Compose).
+* `JWT_SECRET`, `CLOUDINARY_*` — secrets for auth and file uploads.
+* `PORT` — API port (defaults to 3000).
 
 ---
 
@@ -152,6 +146,34 @@ npx prisma generate
 ```bash
 npm run dev
 ```
+
+---
+
+## 🐳 Docker (API + PostgreSQL + Redis)
+
+This repo includes a production-ready Dockerfile and `docker-compose.yml` that bootstraps the API, PostgreSQL, and Redis together.
+
+1. Copy `env.example` → `.env` and set your secrets (compose defaults already point the API to the in-cluster Postgres/Redis).
+2. Build and start everything:
+
+```bash
+docker compose up --build
+```
+
+Compose will:
+
+* create persistent `postgres` / `redis` volumes,
+* run Prisma migrations before the API boots,
+* expose the API at `http://localhost:3000`,
+* expose PostgreSQL (`localhost:5432`) and Redis (`localhost:6379`) for local tools.
+
+To stop and remove containers + volumes:
+
+```bash
+docker compose down -v
+```
+
+Deployments can reuse the provided `Dockerfile`; platforms like Railway/Render only need the same env vars that work locally.
 
 ---
 
